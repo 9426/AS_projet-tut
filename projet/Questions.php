@@ -18,14 +18,13 @@ if ($_SESSION['first_question'] == 1) {
 	$_SESSION['Temps_debut'] = $Temps_debut;
 }
 
-// Variable jauge
+// Récupération des variables de session
 $id_personne = $_SESSION['id_utilisateur'];
 $nb_aleatoire = $_SESSION['nb_aleatoire'];
 $id_questionnaire = $_SESSION['id_questionnaire'];
 $nb_insertion_jauge = $_SESSION['nb_insertion_jauge'];
-
-// Gestion de la $jauge
 $jauge = $_SESSION['jauge'];
+
 $affichage_jauge = 0;
 
 
@@ -46,102 +45,43 @@ if($nb_insertion_jauge == 1){
 
 }
 
-// Fonction qui détermine le chemin que va suivre l'utilisateur
-function determi_chemin($id_personne){
+//On trouve le chemin de l'utilisateur selon son id
+$chemin = secu::determi_chemin($id_personne);
 
-	require("config.php");
+//On recupere la i=1 depuis question_debut.php
+//$_SESSION['i'] = 1;
 
-	try{
-	$bdd = new PDO($_SGBD["nsd"], $_SGBD["username"], $_SGBD["password"]);
-	}
-	catch(PDOException $e){
-		die("Erreur : ".$e->getMessage());
-	}
+if ($_SESSION['first_question'] == 1) {
+	$i = 0;
+	$_SESSION['i'] = $i;
+	// Enregistrement temps pour la première question
+	$_SESSION['Temps_rep_prec'] = $_SESSION['Temps_debut'];
 
-	$max_question_difficile = $bdd->prepare('SELECT id_question FROM question_difficile WHERE id_question IN (SELECT MAX(id_question) FROM question_difficile)');
-  $max_question_difficile -> execute();
-	$valeur_difficile = $max_question_difficile->fetch();
-	//echo $valeur_difficile['id_question'];
-
-	$max_question_facile = $bdd->prepare('SELECT id_question FROM question_facile WHERE id_question IN (SELECT MAX(id_question) FROM question_facile)');
-  $max_question_facile -> execute();
-	$valeur_facile = $max_question_facile->fetch();
-	//echo $valeur_facile['id_question'];
-
-	// Chemin question difficile
-		if($id_personne % 4 == 0){
-			$compteur = 0;
-			$num_question = 1;
-
-			while ($num_question <= $valeur_difficile['id_question']) {
-
-				$chemin[$compteur] = $num_question;
-				$compteur++;
-				$num_question = $num_question + 2;
-			}
-
-		return $chemin;
-
-		}
-
-// Chemin question facile
-	if($id_personne % 4 == 1){
-		$compteur = 0;
-		$num_question = 2;
-
-		while ($num_question <= $valeur_facile['id_question']) {
-
-			$chemin[$compteur] = $num_question;
-			$compteur++;
-			$num_question = $num_question + 2;
-	}
-
-	return $chemin;
-
-	}
-
-	// Chemin question facile-difficile
-		if($id_personne % 4 == 2){
-			$compteur = 0;
-			$num_question = 2;
-
-			while ($num_question <= $valeur_difficile['id_question']) {
-
-				$chemin[$compteur] = $num_question;
-				$compteur++;
-				$num_question = $num_question + 2;
-
-				if ($num_question > $valeur_facile['id_question'] / 2 && $num_question % 2 == 0) {
-					$num_question = $num_question - 1;
-				}
-			}
-
-		return $chemin;
-
-		}
-
-		// Chemin question difficile-facile
-			if($id_personne % 4 == 3){
-				$compteur = 0;
-				$num_question = 1;
-
-				while ($num_question <= $valeur_facile['id_question']) {
-
-					$chemin[$compteur] = $num_question;
-					$compteur++;
-					$num_question = $num_question + 2;
-
-					if ($num_question > $valeur_facile['id_question'] / 2 && $num_question % 2 == 1) {
-						$num_question = $num_question + 1;
-					}
-				}
-
-			return $chemin;
-
-			}
 }
 
+else if ($_SESSION['first_question'] != 1) {
+$i= $_SESSION['i'];
+// Enregistrement temps réponse pour toutes les autres réponse autre que la 1
+$Temps_rep_actu = new DateTime();
+$Temps_entre_rep = date_diff($_SESSION['Temps_rep_prec'], $Temps_rep_actu);
+echo $Temps_entre_rep->format("L'utilisateur a pris %H heures %i minutes %s secondes pour répondre à la question d'avant");
+$_SESSION['Temps_rep_prec'] = $Temps_rep_actu;
+}
 
+$num_question = $chemin[$i];
+
+$_SESSION['num_question'] = $num_question;
+$_SESSION['tab_question'] = $chemin;
+
+// Requêtes préparées permettant de pointer vers la table question et les choix correspondants
+
+$question = $bdd->prepare('Select * from question where id_question = "'.$num_question.'"');
+$question->execute();
+$intitule_question = $question->fetch();
+
+$choix = $bdd->prepare('Select * from choix_question where id_choix = "'.$num_question.'"');
+$choix->execute();
+$intitule_choix = $choix->fetch();
  ?>
 
 <!DOCTYPE html>
@@ -165,49 +105,6 @@ function determi_chemin($id_personne){
 		<audio autoplay="autoplay" loop="loop">
 			<source src="son/tictac.mp3" type="audio/mp3" />
 		</audio>
-		<?php
-
-		//On trouve le chemin de l'utilisateur selon son id
-		$chemin = determi_chemin($id_personne);
-
-		//On recupere la i=1 depuis question_debut.php
-		//$_SESSION['i'] = 1;
-
-		if ($_SESSION['first_question'] == 1) {
-			$i = 0;
-			$_SESSION['i'] = $i;
-			// Enregistrement temps pour la première question
-			$_SESSION['Temps_rep_prec'] = $_SESSION['Temps_debut'];
-
-		}
-
-		else if ($_SESSION['first_question'] != 1) {
-		$i= $_SESSION['i'];
-		// Enregistrement temps réponse pour toutes les autres réponse autre que la 1
-		$Temps_rep_actu = new DateTime();
-		$Temps_entre_rep = date_diff($_SESSION['Temps_rep_prec'], $Temps_rep_actu);
-		echo $Temps_entre_rep->format("L'utilisateur a pris %H heures %i minutes %s secondes pour répondre à la question d'avant");
-		$_SESSION['Temps_rep_prec'] = $Temps_rep_actu;
-		}
-
-		$num_question = $chemin[$i];
-		//echo $_SESSION["newsession"];
-	  $_SESSION['num_question'] = $num_question;
-		$_SESSION['tab_question'] = $chemin;
-
-		// Requêtes préparées permettant de pointer vers la table question et les choix correspondantes
-
-		$question = $bdd->prepare('Select * from question where id_question = :id_question');
-		$question ->bindValue(':id_question', $num_question, PDO::PARAM_INT);
-		$question->execute();
-		$intitule_question = $question->fetch();
-
-		$choix = $bdd->prepare('Select * from choix_question where id_choix = :id_question');
-		$choix ->bindValue(':id_question', $num_question, PDO::PARAM_INT);
-		$choix->execute();
-		$intitule_choix = $choix->fetch();
-
-		?>
 
 		<!-- Affichage sur l'écran de la question et des choix -->
 		<div id="header">

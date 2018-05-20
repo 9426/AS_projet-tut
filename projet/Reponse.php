@@ -42,30 +42,25 @@ function redirect_to($url) {
 
 	if($nb_aleatoire == 2){
 
-	 $choix = $bdd->prepare('Select * from choix_question where id_choix = :id_question');
-	 $choix ->bindValue(':id_question', $num_question, PDO::PARAM_INT);
+	 $choix = $bdd->prepare('Select * from choix_question where id_choix = "'.$num_question.'"');
 	 $choix->execute();
    $intitule_choix = $choix->fetch();
-
-		echo $intitule_choix['choix1'];
-
 		$choix = $intitule_choix['choix1'];
 
+//Modification de la jauge selon réponse de l'utilisateur
 		if($choix == $reponse){
 
-       $bonus= rand(-10,5);
+       $bonus= rand(-10,15);
 			 $_SESSION['jauge']= $jauge + $bonus;
 
 		}
 		else {
 
-			$bonus = rand(-5,10);
+			$bonus = rand(-10,10);
 			$_SESSION['jauge']= $jauge - $bonus;
 		}
 
 	}
-
-////////////////////////////////////////////////////////////////////////////////////////////////
 
 	$max_question_facile = $bdd->prepare('select id_question from question_facile where id_question in (select max(id_question) from question_facile)');
 	$max_question_facile-> execute();
@@ -84,23 +79,24 @@ function redirect_to($url) {
 	// Insertion dans appartient
 	$req = $bdd->prepare('INSERT INTO appartient(id_questionnaire,id_reponse,id_question,id_personne)
 													VALUES(:id_questionnaire,:id_reponse,:id_question,:id_personne)');
-	$req->bindValue('id_questionnaire', $num_questionnaire, PDO::PARAM_INT);
-	$req->bindValue('id_reponse', $num_reponse, PDO::PARAM_INT);
-	$req->bindValue('id_question', $num_question, PDO::PARAM_INT);
-	$req->bindValue('id_personne', $num_personne, PDO::PARAM_INT);
-	$req->execute();
+	$req->execute(array('id_questionnaire'=> $num_questionnaire,
+ 											 'id_reponse'=> $num_reponse,
+										  'id_question'=> $num_question,
+										'id_personne'=> $num_personne));
 	$req->closeCursor();
 
 	// Insertion du temps de réponse pour la question 1
 	if ($num_question == 1) {
 
-		$insert_temps_rep_1 = $bdd->query("CALL Insert_temps_reponse_1 ($num_personne)");
+		$insert_temps_rep_1 = $bdd->prepare("CALL Insert_temps_reponse_1 ($num_personne)");
+		$insert_temps_rep_1-> execute();
 	}
 
 	// Insertion du temps pour les autres réponse
 	else if ($num_question > 1) {
 
-		$insert_temps_rep_autre = $bdd->query("CALL Insert_temps_reponse_autre ($num_personne)");
+		$insert_temps_rep_autre = $bdd->prepare("CALL Insert_temps_reponse_autre ($num_personne)");
+		$insert_temps_rep_autre-> execute();
 	}
 
 	if ($i < $valeur_facile['id_question'] / 2){

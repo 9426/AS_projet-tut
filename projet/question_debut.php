@@ -4,8 +4,8 @@ session_start();
 
 $_SESSION['first_question'] = 1;
 
-//Calcul pour le nb d'heures passé en famille
-	$heure_famille= 168 - $_POST['zs_heure_metier'] -$_POST['zs_heure_act'] - $_POST['zs_sommeil'] * 7;
+//Estimation du nb d'heures passé en famille
+	$heure_famille= 18*7 - $_POST['zs_heure_metier'] -$_POST['zs_heure_act'] - $_POST['zs_sommeil'] * 7;
 
 
 	require("config.php");
@@ -22,20 +22,19 @@ $_SESSION['first_question'] = 1;
 	$req = $bdd->prepare('INSERT INTO utilisateur(sexe, age, situation_familliale, nombre_enfants, csp, csp_heure, activite, activite_heure, heure_sommeil, heure_famille)
 									 VALUES( :sexe, :age, :situation_familliale, :enfant, :csp, :csp_heure, :activite, :activite_heure, :heure_sommeil, :heure_famille )');
 
-		$req->bindValue('sexe', $_POST['zs_genre'], PDO::PARAM_STR);
-	    $req->bindValue('age', $_POST['zs_age'], PDO::PARAM_INT);
-		$req->bindValue('situation_familliale', $_POST['zs_famille'], PDO::PARAM_STR);
-		$req->bindValue('enfant', $_POST['zs_enfant'], PDO::PARAM_INT);
-		$req->bindValue('csp', $_POST['zs_metier'], PDO::PARAM_STR);
-		$req->bindValue('csp_heure', $_POST['zs_heure_metier'], PDO::PARAM_INT);
-		$req->bindValue('activite', $_POST['zs_activite'], PDO::PARAM_STR);
-		$req->bindValue('activite_heure', $_POST['zs_heure_act'], PDO::PARAM_INT);
-		$req->bindValue('heure_sommeil', $_POST['zs_sommeil'], PDO::PARAM_INT);
-		$req->bindValue('heure_famille', $heure_famille, PDO::PARAM_INT);
+	$req->execute(array(
+		'sexe' => $_POST['zs_genre']
+		'age' => $_POST['zs_age']
+		'situation_familliale' => $_POST['zs_famille']
+		'enfant' => $_POST['zs_enfant']
+		'csp' => $_POST['zs_metier']
+		'csp_heure' => $_POST['zs_heure_metier']
+		'activite' => $_POST['zs_activite']
+		'activite_heure' => $_POST['zs_heure_act']
+		'heure_sommeil' => $_POST['zs_sommeil']
+		'heure_famille' => $heure_famille
 
-		$req->execute();
-		$req->closeCursor();
-
+	));
 
 	//Recup id max utilisateur, pour inserer le type de chemin
 	$id = $bdd ->prepare('SELECT MAX(id_personne) from utilisateur');
@@ -46,14 +45,16 @@ $_SESSION['first_question'] = 1;
 
 	$chemin=$id%4;
 
+  // Insertion du type de chemin dans table jeux
 	$sql = $bdd->prepare('INSERT INTO jeux(categorie) VALUES(?)');
 	$sql->execute(array($chemin));
 	$sql->closeCursor();
 
-	// Insertion temps depart du questionnaire
-	$insert_temps = $bdd->exec("UPDATE jeux SET temps_debut_utilisateur = now() where temps_debut_utilisateur is null ");
+	// Insertion temps depart du questionnaire dans table jeux
+	$insert_temps = $bdd->prepare('UPDATE jeux SET temps_debut_utilisateur = :temps_debut_utilisateur where temps_debut_utilisateur is null');
+  $insert_temps->execute(array('temps_debut_utilisateur'=> now()));
 
-
+	// On recupére l'id du questionnaire qui vient juste de se creer
 	$id_questionnaire = $bdd ->prepare('SELECT MAX(id_questionnaire) from jeux');
 	$id_questionnaire ->execute();
 	$id_questionnaire= $id_questionnaire->fetch();
@@ -64,13 +65,11 @@ $_SESSION['first_question'] = 1;
 	$_SESSION['nb_insertion_jauge']=1;
 	//creation d'un nombre aleatoire qui choisira les utilisateurs qui verront la jauge (50% de change)
     $_SESSION['nb_aleatoire'] = rand(1,2);
-	$_SESSION['jauge'] = 50;
+		$_SESSION['jauge'] = 50;
 
 
 
 // Après envoie du questionnaire, redirection vers page jeu
-
-echo '<center> Vos données ont bien été tranmises. </center>';
 
 header('location: ./Questions.php');  //location: http://localhost/projet/Questions.php
 

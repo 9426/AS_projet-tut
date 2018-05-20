@@ -31,9 +31,6 @@ session_start();
 		$id_max = $_SESSION['id_utilisateur'];
 
 
-
-
-
          //transfert des données vers la database avec requete preparée
 
          $req = $bdd->prepare('UPDATE utilisateur SET regret = :regret, deci_diff = :deci_diff, reussite = :reussite, reussite_nota = :reussite_nota WHERE id_personne="'.$id_max.'"');
