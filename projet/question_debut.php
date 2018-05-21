@@ -23,15 +23,15 @@ $_SESSION['first_question'] = 1;
 									 VALUES( :sexe, :age, :situation_familliale, :enfant, :csp, :csp_heure, :activite, :activite_heure, :heure_sommeil, :heure_famille )');
 
 	$req->execute(array(
-		'sexe' => $_POST['zs_genre']
-		'age' => $_POST['zs_age']
-		'situation_familliale' => $_POST['zs_famille']
-		'enfant' => $_POST['zs_enfant']
-		'csp' => $_POST['zs_metier']
-		'csp_heure' => $_POST['zs_heure_metier']
-		'activite' => $_POST['zs_activite']
-		'activite_heure' => $_POST['zs_heure_act']
-		'heure_sommeil' => $_POST['zs_sommeil']
+		'sexe' => $_POST['zs_genre'],
+		'age' => $_POST['zs_age'],
+		'situation_familliale' => $_POST['zs_famille'],
+		'enfant' => $_POST['zs_enfant'],
+		'csp' => $_POST['zs_metier'],
+		'csp_heure' => $_POST['zs_heure_metier'],
+		'activite' => $_POST['zs_activite'],
+		'activite_heure' => $_POST['zs_heure_act'],
+		'heure_sommeil' => $_POST['zs_sommeil'],
 		'heure_famille' => $heure_famille
 
 	));
@@ -51,8 +51,7 @@ $_SESSION['first_question'] = 1;
 	$sql->closeCursor();
 
 	// Insertion temps depart du questionnaire dans table jeux
-	$insert_temps = $bdd->prepare('UPDATE jeux SET temps_debut_utilisateur = :temps_debut_utilisateur where temps_debut_utilisateur is null');
-  $insert_temps->execute(array('temps_debut_utilisateur'=> now()));
+	$insert_temps = $bdd->exec("UPDATE jeux SET temps_debut_utilisateur = now() where temps_debut_utilisateur is null ");
 
 	// On recupére l'id du questionnaire qui vient juste de se creer
 	$id_questionnaire = $bdd ->prepare('SELECT MAX(id_questionnaire) from jeux');
