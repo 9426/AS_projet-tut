@@ -1,3 +1,7 @@
+<?php
+
+require("secu.php");
+?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -28,6 +32,34 @@
 				<input class="mdl-button mdl-button--raised mdl-button--colored" type="submit" value="Commencer">
 			</form>
 		</div>
+		<p>Accès aux stats du jeu </p>
+		<p>Mot de passe administrateur :</p>
+
+	 <form action="page_accueil.php" method="post">
+
+			 <p>
+
+			 <input type="password" name="password" />
+
+			 <input type="submit" value="Valider" />
+
+			 </p>
+
+	 </form>
+<?php
+
+	 $password = secu::identification($_POST['password']);
+
+
+	if ($password ==  true){
+	 header('location:./stats.php');
+	}
+	else{
+	   echo "Mot de passe incorrect!";
+
+	 }
+
+	 ?>
 		<div class="name">
 			<p>AXEL BOISSON - THOMAS FOCH - YANN LEMAIRE -  PAUL MOTTIN</p>
 		</div>

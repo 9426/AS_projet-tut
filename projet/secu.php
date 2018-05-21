@@ -5,6 +5,18 @@
 		{
 			return  htmlspecialchars($var);
 		}
+
+		public static function identification($pass)
+		{
+
+			if ($pass ==  "hehehe"){
+				return true;
+			}
+			else{
+				return false;
+			}
+
+		}
 		public static function determi_chemin($id_personne){
 
 
