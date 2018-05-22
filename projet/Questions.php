@@ -104,25 +104,25 @@ $intitule_choix = $choix->fetch();
 
 			<h1> <?php echo 'Question'," ", $i+1; ?> </h1>
 		</div>
-		
-		<?php 
-				if($jauge <= 35){
-					echo "<img src=\"jauge.php?type=normal&amp;color=rouge&amp;pc=$jauge\">";
-					echo "<audio autoplay=\"autoplay\" loop=\"loop\">";
-					echo "<source src=\"son/tictac.mp3\" type=\"audio/mp3\" />";
-					echo "</audio>";
-				}
-				else if($jauge > 35 && $jauge<=50){
-					echo "<img src=\"jauge.php?type=normal&amp;color=jaune&amp;pc=$jauge\">";
-					echo "<audio autoplay=\"autoplay\" loop=\"loop\">";
-					echo "<source src=\"son/tictac.mp3\" type=\"audio/mp3\" />";
-					echo "</audio>";
-				}
-				else if($jauge > 50){
-					echo "<img src=\"jauge.php?type=normal&amp;color=vert&amp;pc=$jauge\">";
-				}			
-		?>
-		
+		<div class="jauge">
+			<?php 
+					if($jauge <= 35 && $affichage_jauge == 1){
+						echo "<center><img src=\"jauge.php?type=normal&amp;color=rouge&amp;pc=$jauge\"></center>";
+						echo "<audio autoplay=\"autoplay\" loop=\"loop\">";
+						echo "<source src=\"son/tictac.mp3\" type=\"audio/mp3\" />";
+						echo "</audio>";
+					}
+					else if($jauge > 35 && $jauge<=50 && $affichage_jauge == 1){
+						echo "<center><img src=\"jauge.php?type=normal&amp;color=jaune&amp;pc=$jauge\"></center>";
+						echo "<audio autoplay=\"autoplay\" loop=\"loop\">";
+						echo "<source src=\"son/tictac.mp3\" type=\"audio/mp3\" />";
+						echo "</audio>";
+					}
+					else if($jauge > 50 && $affichage_jauge == 1){
+						echo "<center><img src=\"jauge.php?type=normal&amp;color=vert&amp;pc=$jauge\"></center>";
+					}			
+			?>
+		</div>
 		<div id = "question">
 			<div class="image">
 				<img src="images/Q<?php echo secu::affichage($num_question); ?>.png" height="318" width="449" >
@@ -171,3 +171,4 @@ $intitule_choix = $choix->fetch();
 
 	</body>
 </html>
+
