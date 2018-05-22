@@ -1,4 +1,4 @@
-	<?php
+		<?php
 	session_start();
 
   require("secu.php");
@@ -45,10 +45,15 @@
 									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 										<span class="mdl-list__item-secondary-action">
 											<div class = "listcheckbox">
-												<div class ="checkbox">
-													<?php for ($index=1; $index < 5; $index++) {
+												
+													<?php $j =0;
+													for ($index=1; $index < 9; $index++) {
+													
+													if($j == 0) {
 													?>
 													
+													<div class ="checkbox">
+														<?php } ?>
 													<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-<?php echo $index;?>">
 														<input type="checkbox" id="list-checkbox-<?php echo $index;?>" class="mdl-checkbox__input" name="zs_regret[]" value="<?php $index;?>">
 														<a href="#" class="info">Question <?php echo $index;?>
@@ -70,49 +75,17 @@
 																	$question = $sql->fetch();
 																	//affichage des 8 questions, avec pour valeur d'enregistrement le numero de question ( table question Primary key)
 																	echo " ".secu::affichage($question['texte'])." ";
+																	$j++;
 																?>
 															</span>
 														</a><br>
 													</label>
-													
+													<?php if($j == 2){ ?>
+													</div>	
 												<?php
-												}
+												$j = 0;} }
 												?>
-												</div>
-												<div class ="checkbox">
-												<?php for ($index=5; $index < 9; $index++) {
-													?>
-													
-													<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-<?php echo $index;?>">
-														<input type="checkbox" id="list-checkbox-<?php echo $index;?>" class="mdl-checkbox__input" name="zs_regret[]" value="<?php $index;?>">
-														<a href="#" class="info">Question <?php echo $index;?>
-															<span>
-																<?php
-																	//recuperation de la var initialisé dans questions.php, tableau contenant les numeros des questions
-																	$chemin = $_SESSION['tab_question'];
-																	//var_dump($chemin); affiche le tableau pour verif
-
-																	// determination longueur du tableau precedent
-																	$long = sizeof($chemin);
-																	//echo $long;
-
-																	// Boucle pour afficher toutes les questions auxquels a répondu l'utilisateur
-
-																	$indice = $chemin[$index-1];// transmition du numero de question du tableau a la variable
-																	$sql=$bdd->prepare('SELECT id_question, texte FROM question WHERE id_question = ?');
-																	$sql->execute(array($indice));
-																	$question = $sql->fetch();
-																	//affichage des 8 questions, avec pour valeur d'enregistrement le numero de question ( table question Primary key)
-																	echo " ".secu::affichage($question['texte'])." ";
-																?>
-															</span>
-														</a><br>
-													</label>
-													
-												<?php
-												}
-												?>
-												</div>
+																					
 											</div>
 										</span>
 									</div>
@@ -121,46 +94,15 @@
 									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 										<span class="mdl-list__item-secondary-action">
 											<div class = "listcheckbox">
-												<div class = "checkbox">
-													<?php for ($index=1; $index < 5; $index++) {
+												
+													<?php for ($index=1; $index < 9; $index++) {
+														
+														if($j == 0) {
 													?>
 													
-													<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-<?php echo $varcss;?>">
-														<input type="checkbox" id="list-checkbox-<?php echo $varcss;?>" class="mdl-checkbox__input" name="zs_deci_diff[]" value="<?php $index;?>" >
-														<a href="#" class="info">Réponse <?php echo $index;?>
-															<span>
-																<?php
-																	//recuperation de la var initialisé dans questions.php, tableau contenant les numeros des questions
-																	$chemin = $_SESSION['tab_question'];
-																	//var_dump($chemin); affiche le tableau pour verif
-
-																	// determination longueur du tableau precedent
-																	$long = sizeof($chemin);
-																	//echo $long;
-
-																	// Boucle pour afficher toutes les choix auxquels a fait face l'utilisateur
-
-																	$indice = $chemin[$index-1];// transmition du numero de question du tableau a la variable, pour aller chercher le choix
-																	$sql2=$bdd->prepare('SELECT choix1, choix2, c.id_question FROM choix_question c JOIN question on c.id_question=question.id_question WHERE question.id_question = ?');
-																	$sql2->execute(array($indice));
-																	$choix = $sql2->fetch();
-
-																	//affichage des 8 choix ( 2 par ligne), avec pour valeur d'enregistrement le numeros de question (table choix Foreign key)
-																	echo " ".secu::affichage($choix['choix1']).", ".secu::affichage($choix['choix2']);
-																?>
-															</span>
-														</a><br>
-													</label>
 													
-													<?php
-													$varcss = $varcss +1;
-													}
-													?>
-													</div>
 													<div class = "checkbox">
-													<?php for ($index=5; $index < 9; $index++) {
-													?>
-													
+														<?php } ?>
 													<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-<?php echo $varcss;?>">
 														<input type="checkbox" id="list-checkbox-<?php echo $varcss;?>" class="mdl-checkbox__input" name="zs_deci_diff[]" value="<?php $index;?>" >
 														<a href="#" class="info">Réponse <?php echo $index;?>
@@ -183,16 +125,23 @@
 
 																	//affichage des 8 choix ( 2 par ligne), avec pour valeur d'enregistrement le numeros de question (table choix Foreign key)
 																	echo " ".secu::affichage($choix['choix1']).", ".secu::affichage($choix['choix2']);
+																	$j++;
 																?>
 															</span>
 														</a><br>
 													</label>
+													<?php if($j == 2){ ?>
+													</div>	
+												<?php
+												$j = 0;} 
+												?>
 													
 													<?php
 													$varcss = $varcss +1;
 													}
 													?>
-												</div>
+												
+													
 											</div>
 										</span>
 									</div>
@@ -238,3 +187,4 @@
 	<?php
 
 	?>
+
