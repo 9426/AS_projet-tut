@@ -41,12 +41,15 @@ require("secu.php");
 			 </form>
 			 
 			 <?php
-
+			$password = null;
 			$password = secu::identification($_POST['password']);
 
 
 			if ($password ==  true){
 				header('location:./stats.php');
+			}
+			if ($password == null){
+				
 			}
 			else{
 				echo "<p align=\"center\">Mot de passe incorrect!</p>";
