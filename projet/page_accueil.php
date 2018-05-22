@@ -8,8 +8,8 @@ require("secu.php");
 		<meta charset="utf-8">
 		<title>Emotions et Decisions</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" />
-		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="style/material-design-lite.css"/> 
+		<script type="text/javascript" src="js/material-design-lite.js"></script>
 		<link rel="stylesheet" href="style/styles.css"/>
 	</head>
 
@@ -27,39 +27,41 @@ require("secu.php");
 			<p>Nous vous remercions donc de participer à notre projet</p>
 			</div>
 		</div>
+		<div class="admin">
+			<p align="center" >Accès aux stats du jeu </p>
+			 <form action="page_accueil.php" method="post">
+				 <p>
+					 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="password">
+						<input class="mdl-textfield__input" type="password" name="password"/>
+						<label class="mdl-textfield__label" for="password">Uniquement pour les administrateurs</label>
+					</div>
+					<br>
+					 <center><input class="mdl-button mdl-button--raised mdl-button--colored" type="submit" value="Valider"/></center>
+				 </p>
+			 </form>
+			 
+			 <?php
+
+			$password = secu::identification($_POST['password']);
+
+
+			if ($password ==  true){
+				header('location:./stats.php');
+			}
+			else{
+				echo "<p align=\"center\">Mot de passe incorrect!</p>";
+			 }
+
+		 ?>
+			 
+		</div>	
+		
 		<div class="button_accueil">
 			<form name="frm" action="./question_debut.html" method="post">
 				<input class="mdl-button mdl-button--raised mdl-button--colored" type="submit" value="Commencer">
 			</form>
 		</div>
-		<p>Accès aux stats du jeu </p>
-		<p>Mot de passe administrateur :</p>
-
-	 <form action="page_accueil.php" method="post">
-
-			 <p>
-
-			 <input type="password" name="password" />
-
-			 <input type="submit" value="Valider" />
-
-			 </p>
-
-	 </form>
-<?php
-
-	 $password = secu::identification($_POST['password']);
-
-
-	if ($password ==  true){
-	 header('location:./stats.php');
-	}
-	else{
-	   echo "Mot de passe incorrect!";
-
-	 }
-
-	 ?>
+		
 		<div class="name">
 			<p>AXEL BOISSON - THOMAS FOCH - YANN LEMAIRE -  PAUL MOTTIN</p>
 		</div>

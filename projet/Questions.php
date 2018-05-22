@@ -29,7 +29,7 @@ $affichage_jauge = 0;
 
 
 if($nb_aleatoire == 2){
-	echo $jauge;
+	//echo $jauge;
 	$affichage_jauge = 1;
 
 }
@@ -64,7 +64,7 @@ $i= $_SESSION['i'];
 // Enregistrement temps réponse pour toutes les autres réponse autre que la 1
 $Temps_rep_actu = new DateTime();
 $Temps_entre_rep = date_diff($_SESSION['Temps_rep_prec'], $Temps_rep_actu);
-echo $Temps_entre_rep->format("L'utilisateur a pris %H heures %i minutes %s secondes pour répondre à la question d'avant");
+//echo $Temps_entre_rep->format("L'utilisateur a pris %H heures %i minutes %s secondes pour répondre à la question d'avant");
 $_SESSION['Temps_rep_prec'] = $Temps_rep_actu;
 }
 
@@ -90,27 +90,39 @@ $intitule_choix = $choix->fetch();
 		<meta charset="utf-8">
 		<title> Test </title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" />
-		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-		<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
-		<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-		<Script src = "js/jquery-3.3.1.js"> </script>
-		<Script src = "js/js.js"> </script>
+		<link rel="stylesheet" type="text/css" href="style/material-design-lite.css"/> 
+		<script type="text/javascript" src="js/material-design-lite.js"></script>	
 		<link rel="stylesheet" type="text/css" href="style/styles.css"/>
 	</head>
 
 	<body>
 
-		<audio autoplay="autoplay" loop="loop">
-			<source src="son/tictac.mp3" type="audio/mp3" />
-		</audio>
+		
 
 		<!-- Affichage sur l'écran de la question et des choix -->
 		<div id="header">
 
 			<h1> <?php echo 'Question'," ", $i+1; ?> </h1>
 		</div>
+		
+		<?php 
+				if($jauge <= 35){
+					echo "<img src=\"jauge.php?type=normal&amp;color=rouge&amp;pc=$jauge\">";
+					echo "<audio autoplay=\"autoplay\" loop=\"loop\">";
+					echo "<source src=\"son/tictac.mp3\" type=\"audio/mp3\" />";
+					echo "</audio>";
+				}
+				else if($jauge > 35 && $jauge<=50){
+					echo "<img src=\"jauge.php?type=normal&amp;color=jaune&amp;pc=$jauge\">";
+					echo "<audio autoplay=\"autoplay\" loop=\"loop\">";
+					echo "<source src=\"son/tictac.mp3\" type=\"audio/mp3\" />";
+					echo "</audio>";
+				}
+				else if($jauge > 50){
+					echo "<img src=\"jauge.php?type=normal&amp;color=vert&amp;pc=$jauge\">";
+				}			
+		?>
+		
 		<div id = "question">
 			<div class="image">
 				<img src="images/Q<?php echo secu::affichage($num_question); ?>.png" height="318" width="449" >
@@ -136,12 +148,11 @@ $intitule_choix = $choix->fetch();
 						</span>
 					</div>
 				</div>
-
-				<div class="outer-div">
-					<div class="inner-div">
-						<a id="controlButton"  class="progress-button"></a>
-					</div>
-				</div>
+				
+				<?php
+					echo "<center><img src=\"progress.php?type=normal&amp;color=progression&amp;pc=$i+1\"></center>";
+				?>
+				
 				<!-- <input type="hidden" name="id_qs" value="<?php $i ?>"-->
 				<div class="button">
 					<input type="submit"  class="mdl-button mdl-button--raised mdl-button--colored command increment" onclick="javascript:location.href='Questions.php'" value="Question suivante">

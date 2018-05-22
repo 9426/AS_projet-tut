@@ -21,8 +21,8 @@
 			<meta charset="utf-8">
 			<title>Emotions et Decisions</title>
 			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-			<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" />
-			<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="style/material-design-lite.css"/> 
+			<script type="text/javascript" src="js/material-design-lite.js"></script>	
 			<link rel="stylesheet" type="text/css" href="style/styles.css"/>
 		</head>
 
@@ -46,13 +46,11 @@
 										<span class="mdl-list__item-secondary-action">
 											<div class = "listcheckbox">
 												<div class ="checkbox">
-
-
-													<?php for ($index=1; $index < 9; $index++) {
+													<?php for ($index=1; $index < 5; $index++) {
 													?>
-
+													
 													<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-<?php echo $index;?>">
-														<input type="checkbox" id="list-checkbox-<?php echo $index;?>" class="mdl-checkbox__input" name="zs_regret[]" value="<?php echo $index;?>">
+														<input type="checkbox" id="list-checkbox-<?php echo $index;?>" class="mdl-checkbox__input" name="zs_regret[]" value="<?php $index;?>">
 														<a href="#" class="info">Question <?php echo $index;?>
 															<span>
 																<?php
@@ -72,12 +70,45 @@
 																	$question = $sql->fetch();
 																	//affichage des 8 questions, avec pour valeur d'enregistrement le numero de question ( table question Primary key)
 																	echo " ".secu::affichage($question['texte'])." ";
-
-
 																?>
 															</span>
 														</a><br>
 													</label>
+													
+												<?php
+												}
+												?>
+												</div>
+												<div class ="checkbox">
+												<?php for ($index=5; $index < 9; $index++) {
+													?>
+													
+													<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-<?php echo $index;?>">
+														<input type="checkbox" id="list-checkbox-<?php echo $index;?>" class="mdl-checkbox__input" name="zs_regret[]" value="<?php $index;?>">
+														<a href="#" class="info">Question <?php echo $index;?>
+															<span>
+																<?php
+																	//recuperation de la var initialisé dans questions.php, tableau contenant les numeros des questions
+																	$chemin = $_SESSION['tab_question'];
+																	//var_dump($chemin); affiche le tableau pour verif
+
+																	// determination longueur du tableau precedent
+																	$long = sizeof($chemin);
+																	//echo $long;
+
+																	// Boucle pour afficher toutes les questions auxquels a répondu l'utilisateur
+
+																	$indice = $chemin[$index-1];// transmition du numero de question du tableau a la variable
+																	$sql=$bdd->prepare('SELECT id_question, texte FROM question WHERE id_question = ?');
+																	$sql->execute(array($indice));
+																	$question = $sql->fetch();
+																	//affichage des 8 questions, avec pour valeur d'enregistrement le numero de question ( table question Primary key)
+																	echo " ".secu::affichage($question['texte'])." ";
+																?>
+															</span>
+														</a><br>
+													</label>
+													
 												<?php
 												}
 												?>
@@ -91,12 +122,11 @@
 										<span class="mdl-list__item-secondary-action">
 											<div class = "listcheckbox">
 												<div class = "checkbox">
-
-													<?php for ($index=1; $index < 9; $index++) {
+													<?php for ($index=1; $index < 5; $index++) {
 													?>
-
+													
 													<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-<?php echo $varcss;?>">
-														<input type="checkbox" id="list-checkbox-<?php echo $varcss;?>" class="mdl-checkbox__input" name="zs_deci_diff[]" value="<?php echo $index;?>" >
+														<input type="checkbox" id="list-checkbox-<?php echo $varcss;?>" class="mdl-checkbox__input" name="zs_deci_diff[]" value="<?php $index;?>" >
 														<a href="#" class="info">Réponse <?php echo $index;?>
 															<span>
 																<?php
@@ -121,6 +151,43 @@
 															</span>
 														</a><br>
 													</label>
+													
+													<?php
+													$varcss = $varcss +1;
+													}
+													?>
+													</div>
+													<div class = "checkbox">
+													<?php for ($index=5; $index < 9; $index++) {
+													?>
+													
+													<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-<?php echo $varcss;?>">
+														<input type="checkbox" id="list-checkbox-<?php echo $varcss;?>" class="mdl-checkbox__input" name="zs_deci_diff[]" value="<?php $index;?>" >
+														<a href="#" class="info">Réponse <?php echo $index;?>
+															<span>
+																<?php
+																	//recuperation de la var initialisé dans questions.php, tableau contenant les numeros des questions
+																	$chemin = $_SESSION['tab_question'];
+																	//var_dump($chemin); affiche le tableau pour verif
+
+																	// determination longueur du tableau precedent
+																	$long = sizeof($chemin);
+																	//echo $long;
+
+																	// Boucle pour afficher toutes les choix auxquels a fait face l'utilisateur
+
+																	$indice = $chemin[$index-1];// transmition du numero de question du tableau a la variable, pour aller chercher le choix
+																	$sql2=$bdd->prepare('SELECT choix1, choix2, c.id_question FROM choix_question c JOIN question on c.id_question=question.id_question WHERE question.id_question = ?');
+																	$sql2->execute(array($indice));
+																	$choix = $sql2->fetch();
+
+																	//affichage des 8 choix ( 2 par ligne), avec pour valeur d'enregistrement le numeros de question (table choix Foreign key)
+																	echo " ".secu::affichage($choix['choix1']).", ".secu::affichage($choix['choix2']);
+																?>
+															</span>
+														</a><br>
+													</label>
+													
 													<?php
 													$varcss = $varcss +1;
 													}
@@ -134,10 +201,9 @@
 						</div>
 						<div class="list_fin">
 							<ul>
-
-								<li>Pensez-vous avoir pris les bonnes décisions ?
+ 								<li>Pensez-vous avoir pris les bonnes décisions ?
 									<span class="mdl-list__item-secondary-action">
-										<p>
+										<p><br>
 											<label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-oui">
 												<input type="radio" id="list-option-oui" class="mdl-radio__button" name="zs_reussite" value="Oui" checked required > Oui<br>
 											</label>
@@ -150,10 +216,10 @@
 									</span>
 								</li>
 								<br>
-								<li>Sur une échelle de 1 à 10 à combien estimez-vous votre réussite ? <br>
+								<li>Sur une échelle de 0 à 10 à combien estimez-vous votre réussite ? <br>
 									<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 										<p>
-											<input type = "text" class="mdl-textfield__input" id="reussite" pattern="[0-9]*" name="zs_reussite_nota" >
+											<input type = "number" min="0" max="10" class="mdl-textfield__input" id="reussite" pattern="[0-9]*" name="zs_reussite_nota" checked required >
 											<label class="mdl-textfield__label" for="reussite"> Une note entre 0 et 10 !</label>
 											<span class="mdl-textfield__error">Uniquement un nombre s'il vous plait !</span>
 										</p>
