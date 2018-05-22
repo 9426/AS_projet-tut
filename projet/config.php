@@ -1,4 +1,4 @@
 <?php
-$_SGBD=array("username"=>'root',"password"=>'1007', "nsd" =>'mysql:host=localhost;dbname=projet;charset=utf8');
+$_SGBD=array("username"=>'focht',"password"=>'15092012', "nsd" =>'mysql:host=webinfo.iutmontp.univ-montp2.fr;dbname=focht;charset=UTF8');
 
 ?>
