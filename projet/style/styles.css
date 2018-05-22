@@ -115,6 +115,10 @@ body {
 	width: auto;
 }
 
+.jauge {
+	margin: 20px;
+}
+
 .image {
 	display:block;
 	
