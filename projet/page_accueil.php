@@ -27,8 +27,19 @@ require("secu.php");
 			<p>Nous vous remercions donc de participer à notre projet</p>
 			</div>
 		</div>
+		
+		
+		<div class="button_accueil">
+			<form name="frm" action="./question_debut.html" method="post">
+				<input class="mdl-button mdl-button--raised mdl-button--colored" type="submit" value="Commencer">
+			</form>
+		</div>
+		<div class="name">
+			<p>AXEL BOISSON - THOMAS FOCH - YANN LEMAIRE -  PAUL MOTTIN</p>
+		</div>
+		
 		<div class="admin">
-			<p align="center" >Accès aux stats du jeu </p>
+			<p align="center" >Accès aux administrateurs du jeu </p>
 			 <form action="page_accueil.php" method="post">
 				 <p>
 					 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="password">
@@ -41,32 +52,26 @@ require("secu.php");
 			 </form>
 			 
 			 <?php
-			$password = null;
+			/*
+			$password = 1;
 			$password = secu::identification($_POST['password']);
 
 
 			if ($password ==  true){
 				header('location:./stats.php');
 			}
-			if ($password == null){
+			if ($password == 1){
 				
-			}
-			else{
-				echo "<p align=\"center\">Mot de passe incorrect!</p>";
+			} 
+			if ($password ==  false){
+				echo "<p align=\"center\">Mot de passe incorrect !</p>";
 			 }
 
-		 ?>
+		*/ ?>
 			 
 		</div>	
 		
-		<div class="button_accueil">
-			<form name="frm" action="./question_debut.html" method="post">
-				<input class="mdl-button mdl-button--raised mdl-button--colored" type="submit" value="Commencer">
-			</form>
-		</div>
 		
-		<div class="name">
-			<p>AXEL BOISSON - THOMAS FOCH - YANN LEMAIRE -  PAUL MOTTIN</p>
-		</div>
+		
 	</body>
 </html>

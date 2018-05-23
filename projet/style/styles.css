@@ -39,9 +39,10 @@ body {
 }
 
 .admin {
+	position: absolute;
+	left: 75%;
 	display: inline-block;
 	background-color: white; 
-	
 	margin-top: 20px;
 	margin-left: 20px;
     padding: 20px;
@@ -124,8 +125,6 @@ body {
 	
 	border: 5px solid rgba(0, 0, 0, 0.14);
 	margin:20px auto 20px auto;
-	
-	
 }
 
 .image img{
@@ -171,12 +170,13 @@ body {
 }
 
 .button_accueil{
+	margin: 100px;
 	text-align: center;
 }
 
 .name {
 	text-align: center;
-	margin: 100px;
+	margin: 20px;
 }
 
 center{
