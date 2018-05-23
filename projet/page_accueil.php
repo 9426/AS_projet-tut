@@ -15,16 +15,15 @@ require("secu.php");
 
 	<body>
 		<div id="header">
-			<h1>Projet de fin d'étude DUT Informatique AS</h1>
+			<h1>Salutation gentil cobaye !</h1>
 			<div class="title">
-				<p>Dans le cadre de nos études à l'IUT de Montpellier-Sète, pour notre second semestre en année spéciale il nous ait
-				demandé de réaliser un projet.<br>
-				Nous allons donc vous faire passer un test qui se déroulera en 3 étapes :
-					<li>Un questionnaire personnel</li>
-					<li>Une série de questions/réponses</li>
-					<li>Un questionnaire de fin sur votre ressenti</li>
+				<p>Dans le cadre de nos études en informatique à l'IUT de Montpellier, nous avons besoin de votre aide pour répondre à une série de question.
+				<p>Ce test se déroulera en trois étapes distcinctes :</p> 
+					<p> - Un questionnaire personnel à remplir</p>
+					<p> - Une série de questions avec deux choix possibles<p>
+					<p> - Un questionnaire de fin récupérant votre ressenti sur le projet<p>
 			</p>
-			<p>Nous vous remercions donc de participer à notre projet</p>
+			<p>Nous vous remercions par avance de votre participation !</p>
 			</div>
 		</div>
 		
@@ -52,22 +51,20 @@ require("secu.php");
 			 </form>
 			 
 			 <?php
-			/*
-			$password = 1;
-			$password = secu::identification($_POST['password']);
+					
+				if (isset($_POST['password'])) {
+					$password = secu::identification($_POST['password']);
+					if ($password ==  true){
+						header('location:./stats.php');
+					}
+					
+					if ($password ==  false){
+					echo "<p align=\"center\">Mot de passe incorrect !</p>";
+				    }
 
-
-			if ($password ==  true){
-				header('location:./stats.php');
-			}
-			if ($password == 1){
-				
-			} 
-			if ($password ==  false){
-				echo "<p align=\"center\">Mot de passe incorrect !</p>";
-			 }
-
-		*/ ?>
+			    }		
+			
+		 ?>
 			 
 		</div>	
 		

@@ -28,6 +28,7 @@ body {
 	font-size: 50px;
 }
 
+
 .title h2 {
 	font-size: 40px;
 }
@@ -37,6 +38,8 @@ body {
 	font-weight: normal;
 	padding: 0px 24px;
 }
+
+
 
 .admin {
 	position: absolute;

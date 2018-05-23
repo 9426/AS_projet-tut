@@ -15,8 +15,7 @@
 			<h1></h1>
 			<div class="title">
 				<h2>Informations</h2>
-				<p>Dans le but de mieux analyser vos réponses nous avons besoin quelques renseignements vous concernant,
-					ces données ne seront accessible à personne et seulement utilisées dans un but purement scolaire.</p>
+				<p>Dans l'objectif d'avoir une analyse pertinente de vos réponses, nous avons besoin de quelques renseignements vous concernant,ces données ne seront accessible à aucun tiers, elles seront utilisées seulement dans le cadre de notre projet scolaire</p>
 			</div>
 		</div>
 		<form name="frm_debut" action="question_debut.php" method="post" required> <!-- fichier a créer va permettre d'envoyer les données ds la BD-->
@@ -28,8 +27,8 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<p> 
 										<input type = "text" name="zs_age" class="mdl-textfield__input" pattern="[0-9]*" id="Age" required><br>
-										<label class="mdl-textfield__label" for="Age">Vous avez quel age ?</label>
-										<span class="mdl-textfield__error">Uniquement un nombre s'il vous plait !</span>
+										<label class="mdl-textfield__label" for="Age">Quel âge avez-vous ?</label>
+										<span class="mdl-textfield__error">Uniquement en nombre s'il vous plait !</span>
 									</p>
 								</div>								
 							</li>					
@@ -79,7 +78,7 @@
 									<p> 
 										<input type = "text" name="zs_enfant" class="mdl-textfield__input" pattern="[0-9]*" id="Enfant" required><br>
 										<label class="mdl-textfield__label" for="Enfant">Combien d'enfant ?</label>
-										<span class="mdl-textfield__error">Uniquement un nombre s'il vous plait !</span>
+										<span class="mdl-textfield__error">Uniquement en nombre s'il vous plait !</span>
 									</p>
 								</div>								
 							</li>
@@ -88,8 +87,8 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<p>
 										<input type = "text" name = "zs_sommeil" class= "mdl-textfield__input" pattern="[0-9]*" id="heureSommeil" required><br>
-										<label class="mdl-textfield__label" for="heureSommeil">Nombre d'heure sommeil par nuit ?</label>
-										<span class="mdl-textfield__error">Uniquement un nombre s'il vous plait !</span>
+										<label class="mdl-textfield__label" for="heureSommeil">Combien d'heures dormez-vous par nuit ?</label>
+										<span class="mdl-textfield__error">Uniquement en nombre s'il vous plait !</span>
 									</p>
 								</div>
 							</li>
@@ -159,7 +158,7 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<p>
 										<input type ="text" name="zs_activite" class="mdl-textfield__input" pattern="[A-Z," ",a-z]*" id="loisirsActivites" required><br>
-										<label class="mdl-textfield__label" for="loisirsActivites">Votre loisirs / activités ?</label>
+										<label class="mdl-textfield__label" for="loisirsActivites">Vos loisirs / activités ?</label>
 										<span class="mdl-textfield__error">Uniquement des lettres s'il vous plait !</span>
 									</p>
 								</div>
@@ -168,8 +167,8 @@
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 									<p>
 										<input type ="text" name="zs_heure_act" class="mdl-textfield__input" pattern="[0-9]*" id="nbLoisirsActivites"  required><br>
-										<label class="mdl-textfield__label" for="nbLoisirsActivites">Nombre d'heures par semaine consacré ?</label>
-										<span class="mdl-textfield__error">Uniquement un nombre s'il vous plait !</span>
+										<label class="mdl-textfield__label" for="nbLoisirsActivites">Nombres d'heures consacré par semaine ?</label>
+										<span class="mdl-textfield__error">Uniquement en nombre s'il vous plait !</span>
 									</p>
 								</div>	
 							</li>
