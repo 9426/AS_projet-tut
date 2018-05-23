@@ -17,6 +17,16 @@ session_start();
     				$deci_diff = '' ;
 				}
 
+
+
+
+print_r($_POST['zs_regret']);
+echo ",";
+print_r($_POST['zs_deci_diff']);
+echo ",";
+
+
+
         require("config.php");
 
 		try{
@@ -29,6 +39,9 @@ session_start();
          //Recup de l'id max donc du dernier utilisateur
 
 		$id_max = $_SESSION['id_utilisateur'];
+
+
+
 
 
          //transfert des données vers la database avec requete preparée

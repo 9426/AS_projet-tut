@@ -64,11 +64,11 @@ $req->execute(array('id_questionnaire'=> $num_questionnaire,
 		    'id_personne'=> $num_personne));
 $req->closeCursor();
 // Insertion du temps de réponse pour la question 1
-if ($num_question == 1) {
+if ($num_question == 1 || $num_question == 2) {
     $insert_temps_rep_1 = $bdd -> query("CALL Insert_temps_reponse_1 ($num_personne)");
 }
 // Insertion du temps pour les autres réponse
-else if ($num_question > 1) {
+else if ($num_question > 2) {
     $insert_temps_rep_autre = $bdd-> query ("CALL Insert_temps_reponse_autre ($num_personne)");
   
 }
