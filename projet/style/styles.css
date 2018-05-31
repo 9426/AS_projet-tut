@@ -186,6 +186,20 @@ center{
 	margin:10px;
 }
 
+#tab{
+	display:flex;
+	flex-direction: column;
+}
+
+#tableauGeneral{
+	
+
+}
+
+
+
+
+
 
  {
    font-size: 11px; /* On définit les propriétés de texte pour toutes les balises. */

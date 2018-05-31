@@ -5,18 +5,20 @@
 		<meta charset="utf-8">
 		<title>Emotions et Decisions</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-blue.min.css" />
-		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="style/material-design-lite.css"/> 
+		<script type="text/javascript" src="js/material-design-lite.js"></script>
 		<link rel="stylesheet" href="style/styles.css"/>
 		<script src="anychart/js/anychart.min.js" type="text/javascript"></script>
 	</head>
 
 	<body>
-		
-		<u>
-		<h3 align="center">Notre page de statistique des joueurs</h3>			
-		</u>
-		
+		<div id="header">
+			<div class="title">
+				<u>
+					<h1 align="center">Analyse des statistiques</h1>			
+				</u>
+			</div>
+		</div>
 		<?php
 		require ("config.php");
 
@@ -38,10 +40,10 @@
 		$tempsMoyen =$bdd -> query("SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(Temps_total_format_date))) FROM utilisateur;");
 		$tempsMoy = $tempsMoyen -> fetchColumn();
 
-		echo("Il y a " . $nb . " personne qui ont effectuer notre test. </br>");
-		echo("L'age moyen des testeurs est de ".$ageMoy. " ans. </br>");
-		echo("La reussite moyenne des testeurs est de ".$reussiteMoy. "</br>");
-		echo("Le temps moyen pour effectuer le test est de ".$tempsMoy);
+		echo("<center><p>Il y a " . $nb . " personne qui ont effectuer notre test. </p>");
+		echo("<p>L'age moyen des testeurs est de ".$ageMoy. " ans. </p>");
+		echo("<p>La reussite moyenne des testeurs est de ".$reussiteMoy. "</p>");
+		echo("<p>Le temps moyen pour effectuer le test est de .$tempsMoy </p></center>");
 
 		?>
 
@@ -63,7 +65,7 @@
 				chart.container('RepartitionHF');
 
 				// set chart title text settings
-				chart.title('repartition HOMME - FEMME');
+				chart.title('Repartition HOMME - FEMME');
 
 				// set legend title text settings
 				chart.legend(true);
@@ -81,10 +83,10 @@
 		</script>
 
 
-		<div id='RepartitionHF'></div>
+		<div id="RepartitionHF"></div>
 		<style>
          #RepartitionHF {
-             width: 100%;
+             width: auto;
              height: 50%;
              margin: 0;
              padding: 0;
@@ -144,10 +146,10 @@
 });
 
         </script>
-		<div id='PersParNote'></div>
+		<div id="PersParNote"></div>
 		<style>
          #PersParNote {
-             width: 100%;
+             width: auto;
              height: 50%;
              margin: 0;
              padding: 0;
@@ -209,19 +211,19 @@
 
         </script>
 
-		<div id='moyReussiteSexe'></div>
+		<div id="moyReussiteSexe"></div>
 		<style>
          #moyReussiteSexe {
-             width: 100%;
+             width: auto;
              height: 50%;
              margin: 0;
              padding: 0;
          }
         </style>
-        
+        <center>
         <form name="frm" action="./stats2.php" method="post" align="center">
 				<input class="mdl-button mdl-button--raised mdl-button--colored" type="submit" value="Suivant">
 		</form>
-		
+		</center>
 	</body>
 </html>
