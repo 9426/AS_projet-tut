@@ -66,11 +66,13 @@ $req->closeCursor();
 // Insertion du temps de réponse pour la question 1
 if ($num_question == 1 || $num_question == 2) {
     $insert_temps_rep_1 = $bdd -> query("CALL Insert_temps_reponse_1 ($num_personne)");
+    $insert_convert_temps = $bdd -> query("CALL Convert_Time_Temps_prit_rep($num_reponse)");
 }
 // Insertion du temps pour les autres réponse
 else if ($num_question > 2) {
     $insert_temps_rep_autre = $bdd-> query ("CALL Insert_temps_reponse_autre ($num_personne)");
-  
+    $insert_convert_temps = $bdd -> query("CALL Convert_Time_Temps_prit_rep($num_reponse)");
+    
 }
 if ($i < $valeur_facile['id_question'] / 2){
     $i++;
@@ -81,6 +83,7 @@ if ($i < $valeur_facile['id_question'] / 2){
 if($i >= $valeur_facile['id_question'] / 2) {
     // Redirection vers questionnaire fin si jeu fini
     $bdd->query("CALL Insert_temps_tot ($num_personne)");
+    $insert_convert_temps_total = $bdd -> query("CALL Convert_Time_Temps_Total($num_personne)");
     header('location:./question_fin.php');
     exit();
 }
