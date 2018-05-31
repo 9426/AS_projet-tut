@@ -40,10 +40,10 @@
 		$tempsMoyen =$bdd -> query("SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(Temps_total_format_date))) FROM utilisateur;");
 		$tempsMoy = $tempsMoyen -> fetchColumn();
 
-		echo("<center><p>Il y a " . $nb . " personne qui ont effectuer notre test. </p>");
-		echo("<p>L'age moyen des testeurs est de ".$ageMoy. " ans. </p>");
+		echo("<center><p>Il y a " . $nb . " personnes qui ont effectué notre test. </p>");
+		echo("<p>L'âge moyen des testeurs est de ".$ageMoy. " ans. </p>");
 		echo("<p>La reussite moyenne des testeurs est de ".$reussiteMoy. "</p>");
-		echo("<p>Le temps moyen pour effectuer le test est de .$tempsMoy </p></center>");
+		echo("<p>Le temps moyen pour effectuer le test est de $tempsMoy minutes.</p></center>");
 
 		?>
 

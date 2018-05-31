@@ -9,7 +9,7 @@
 		public static function identification($pass)
 		{
 
-			if ($pass ==  "hehehe"){
+			if ($pass ==  "Emotion&D2018"){
 				return true;
 			}
 			else{
