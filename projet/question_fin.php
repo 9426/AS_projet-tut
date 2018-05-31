@@ -31,7 +31,7 @@
 				<h1>Emotions et Décisions</h1>
 				<div class="title">
 					<h2>Ressenti</h2>
-					<p>Merci de votre participations, dans l'espoir d'ameliorer notre site et d'avoir vos impressions
+					<p>Merci de votre participation, dans l'espoir d'ameliorer notre site et d'avoir vos impressions
 						veuillez répondre à ces quelques questions s'il vous plait !</p>
 				</div>
 			</div>
@@ -209,7 +209,7 @@
 									<span class="mdl-list__item-secondary-action">
 										<p><br>
 											<label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-oui">
-												<input type="radio" id="list-option-oui" class="mdl-radio__button" name="zs_reussite" value="Oui" checked required > Oui<br>
+												<input type="radio" id="list-option-oui" class="mdl-radio__button" name="zs_reussite" value="Oui" checked  > Oui<br>
 											</label>
 										</p>
 										<p>

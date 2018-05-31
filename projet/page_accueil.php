@@ -15,10 +15,10 @@ require("secu.php");
 
 	<body>
 		<div id="header">
-			<h1>Salutation gentil cobaye !</h1>
+			<h1>Salutations gentil cobaye !</h1>
 			<div class="title">
-				<p>Dans le cadre de nos études en informatique à l'IUT de Montpellier, nous avons besoin de votre aide pour répondre à une série de question.
-				<p>Ce test se déroulera en trois étapes distcinctes :</p> 
+				<p>Dans le cadre de nos études en informatique à l'IUT de Montpellier, nous avons besoin de votre aide pour répondre à une série de questions.
+				<p>Ce test se déroulera en trois étapes distinctes :</p> 
 					<p> - Un questionnaire personnel à remplir</p>
 					<p> - Une série de questions avec deux choix possibles<p>
 					<p> - Un questionnaire de fin récupérant votre ressenti sur le projet<p>
